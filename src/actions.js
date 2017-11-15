@@ -11,6 +11,7 @@ export const RESPONSE_PLACES_ERR = "REQUEST_PLACES_ERR"
 export const MAIN_PAGE_SET_FROM = "MAIN_PAGE_SET_FROM"
 export const MAIN_PAGE_SET_TO = "MAIN_PAGE_SET_TO"
 export const MAIN_PAGE_SET_DATE = "MAIN_PAGE_SET_DATE"
+export const MAIN_PAGE_SET_STATE = "MAIN_PAGE_SET_STATE"
 
 export function requestFlights(){
 	return{ type: REQUEST_FLIGHTS}
@@ -46,6 +47,7 @@ export function responsePlacesErr(){
 	}
 }
 
+/*
 export function mainPageSetFrom(from){
 	return{
 		type: MAIN_PAGE_SET_FROM,
@@ -65,6 +67,13 @@ export function mainPageSetDate(date){
 		type: MAIN_PAGE_SET_DATE,
 		date
 	}
+}*/
+
+export function mainPageSetState(state){
+	return{
+		type: MAIN_PAGE_SET_STATE,
+		state
+	}
 }
 
 export function fetchPlacesForSuggestions(query){
@@ -81,11 +90,22 @@ export function fetchPlacesForSuggestions(query){
 	}
 }
 
-export function fetchFlights(from,to,date){
-	let dateString = moment(date).format('DD%2FMM%2FYYYY')
+export function fetchFlights(params){
+	var paramsCopy = Object.assign({}, params) 
+
+	paramsCopy.dateFrom = moment(paramsCopy.dateFrom).format('DD%2FMM%2FYYYY')
+	if (paramsCopy.dateTo) { paramsCopy.dateTo = moment(paramsCopy.dateTo).format('DD%2FMM%2FYYYY')}else{
+		paramsCopy.dateTo = paramsCopy.dateFrom
+	}
+
+	Object.keys(paramsCopy).forEach(key => {if(paramsCopy[key] === null){delete paramsCopy[key]}})
+
+	var esc = encodeURIComponent
+	var query = Object.keys(paramsCopy).map(k => k + '=' + paramsCopy[k]).join('&')
+
 	return dispatch => {
 		dispatch(requestFlights())
-		return fetch('https://api.skypicker.com/flights?v=2&locale=en&flyFrom='+from+'&to='+to+'&dateFrom='+dateString+'&dateTo='+dateString)
+		return fetch('https://api.skypicker.com/flights?v=2&locale=en&'+query)
 		.then(
             response => response.json(),
 			error => dispatch(responseFlightsErr())
@@ -119,10 +139,11 @@ export function fetchFlightsMulti(from,to,date){
 }*/
 
 
-export function fetchFlightsMulti(from,to,date){
-	from = from.map(from => from.id).join(',')
-	to = to.map(from => from.id).join(',')
-	return fetchFlights(from,to,date)
+export function fetchFlightsMulti(params){
+	var paramsCopy = Object.assign({},params)
+	paramsCopy.flyFrom = paramsCopy.flyFrom.map(from => from.id).join(',')
+	paramsCopy.to = paramsCopy.to.map(from => from.id).join(',')
+	return fetchFlights(paramsCopy)
 }
 
 
