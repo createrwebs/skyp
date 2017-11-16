@@ -41,8 +41,8 @@ describe("App", () => {
   })
 
   it("always renders a div of class app", () => {
-	  const divs = createApp().find(".App")
-	  expect(divs.length).toBeGreaterThan(0)
+	  const divs = createApp().find(".App");
+	  expect(divs.length).toBeGreaterThan(0);
   })
 
   it("contains everything else that gets rendered", () => {
@@ -52,31 +52,31 @@ describe("App", () => {
   })
 
   it("always renders some main control panel" , () =>{
-  	const elements = createApp().find(".main-panel-wrapper")
-  	expect(elements.length).toBeGreaterThan(0)
+  	const elements = createApp().find(".main-panel-wrapper");
+  	expect(elements.length).toBeGreaterThan(0);
   })
 
   it("it renders list of flights if there are some" , () =>{
     props = {...props,flights: [{id: 20}]}
-  	const elements = createApp().find(".flight-list-wrapper")
-  	expect(elements.length).toBeGreaterThan(0)
+  	const elements = createApp().find(".flight-list-wrapper");
+  	expect(elements.length).toBeGreaterThan(0);
   })
 
   it("it renders message if there are no flights" , () =>{
-  	const elements = createApp().find(".not-found-wrapper")
-  	expect(elements.length).toBeGreaterThan(0)
+  	const elements = createApp().find(".not-found-wrapper");
+  	expect(elements.length).toBeGreaterThan(0);
   })
 
   it("it does not render message if fetching flights", () => {
     props = {...props, isFetching: true}
-  	const elements = createApp().find(".not-found-wrapper")
-  	expect(elements.length).toBe(0)
+  	const elements = createApp().find(".not-found-wrapper");
+  	expect(elements.length).toBe(0);
   })
 
   it("shows progress bar if fetching", () => {
 	props = {...props, isFetching: true}
-  	const elements = createApp().find(".progress-bar-wrapper")
-  	expect(elements.length).toBe(1)  
+  	const elements = createApp().find(".progress-bar-wrapper");
+  	expect(elements.length).toBe(1);  
   })
 })
 

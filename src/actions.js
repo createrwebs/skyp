@@ -61,19 +61,19 @@ export function fetchPlacesForSuggestions(query){
 		)
 		.then(
 			places => {return dispatch(responsePlacesSucc(places))}
-		)
-	}
+		);
+	};
 }
 
 export function fetchFlights(params){
-	var paramsCopy = Object.assign({}, params) 
+	var paramsCopy = Object.assign({}, params);
 
-	paramsCopy.dateFrom = moment(paramsCopy.dateFrom).format('DD%2FMM%2FYYYY')
+	paramsCopy.dateFrom = moment(paramsCopy.dateFrom).format('DD%2FMM%2FYYYY');
 	if (paramsCopy.dateTo) { paramsCopy.dateTo = moment(paramsCopy.dateTo).format('DD%2FMM%2FYYYY')}else{
-		paramsCopy.dateTo = paramsCopy.dateFrom
+		paramsCopy.dateTo = paramsCopy.dateFrom;
 	}
-	if (paramsCopy.returnFrom) { paramsCopy.returnFrom = moment(paramsCopy.returnFrom).format('DD%2FMM%2FYYYY')}
-	if (paramsCopy.returnTo) { paramsCopy.returnTo = moment(paramsCopy.returnTo).format('DD%2FMM%2FYYYY')}
+	if (paramsCopy.returnFrom) { paramsCopy.returnFrom = moment(paramsCopy.returnFrom).format('DD%2FMM%2FYYYY');}
+	if (paramsCopy.returnTo) { paramsCopy.returnTo = moment(paramsCopy.returnTo).format('DD%2FMM%2FYYYY');}
 
 	Object.keys(paramsCopy).forEach(key => {if(paramsCopy[key] === null){delete paramsCopy[key]}})
 
@@ -88,15 +88,15 @@ export function fetchFlights(params){
 		)
 		.then(
 			data => {return dispatch(responseFlightsSucc(data.data))}
-		)
-	}
+		);
+	};
 }
 
 export function fetchFlightsMulti(params){
-	var paramsCopy = Object.assign({},params)
-	paramsCopy.flyFrom = paramsCopy.flyFrom.map(from => from.id).join(',')
-	paramsCopy.to = paramsCopy.to.map(from => from.id).join(',')
-	return fetchFlights(paramsCopy)
+	var paramsCopy = Object.assign({},params);
+	paramsCopy.flyFrom = paramsCopy.flyFrom.map(from => from.id).join(',');
+	paramsCopy.to = paramsCopy.to.map(from => from.id).join(',');
+	return fetchFlights(paramsCopy);
 }
 
 

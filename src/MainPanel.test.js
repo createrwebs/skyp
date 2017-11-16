@@ -48,47 +48,47 @@ describe("App", () => {
   })
 
   it("always renders a div of class MainPanel", () => {
-	  const divs = createPanel().find(".MainPanel")
-	  expect(divs.length).toBeGreaterThan(0)
+	  const divs = createPanel().find(".MainPanel");
+	  expect(divs.length).toBeGreaterThan(0);
   })
 
   it("always renders field from", () => {
-    const divs = createPanel().find(".from-field-wrapper")
-    expect(divs.length).toBeGreaterThan(0)
+    const divs = createPanel().find(".from-field-wrapper");
+    expect(divs.length).toBeGreaterThan(0);
   })
 
   it("always renders field to", () => {
-    const elements = createPanel().find(".to-field-wrapper")
-    expect(elements.length).toBeGreaterThan(0)
+    const elements = createPanel().find(".to-field-wrapper");
+    expect(elements.length).toBeGreaterThan(0);
   })
 
   it("always renders field dateFrom", () => {
-    const elements = createPanel().find(".date-from-field-wrapper")
-    expect(elements.length).toBeGreaterThan(0)
+    const elements = createPanel().find(".date-from-field-wrapper");
+    expect(elements.length).toBeGreaterThan(0);
   })
 
   it("shows advanced panel if state is set to advanced", () => {
-    createPanel().setState({advanced: true})
-    const elements = createPanel().find(".advanced-panel-wrapper")
-    expect(elements.length).toBeGreaterThan(0)
+    createPanel().setState({advanced: true});
+    const elements = createPanel().find(".advanced-panel-wrapper");
+    expect(elements.length).toBeGreaterThan(0);
   })
 
   it("should not show advanced panel in original state", () => {
-    createPanel().setState({advanced: false})
-    const elements = createPanel().find(".advanced-panel-wrapper")
-    expect(elements.length).toBe(0)
+    createPanel().setState({advanced: false});
+    const elements = createPanel().find(".advanced-panel-wrapper");
+    expect(elements.length).toBe(0);
   })
 
   it("shows close button if advanced panel open", () => {
-    createPanel().setState({advanced: true})
-    const elements = createPanel().find(".close-adv-panel-btn")
-    expect(elements.length).toBe(1)
+    createPanel().setState({advanced: true});
+    const elements = createPanel().find(".close-adv-panel-btn");
+    expect(elements.length).toBe(1);
   })
 
   it("shows open button if advanced panel closed", () => {
-    createPanel().setState({advanced: false})
-    const elements = createPanel().find(".show-adv-panel-btn")
-    expect(elements.length).toBe(1)
+    createPanel().setState({advanced: false});
+    const elements = createPanel().find(".show-adv-panel-btn");
+    expect(elements.length).toBe(1);
   })
 
   
