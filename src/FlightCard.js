@@ -8,30 +8,30 @@ class FlightCard extends Component {
   render() {
     let routes = this.parseRoutes(this.props.flight.routes,this.props.flight.route);
     return (
-        this.props.flight &&
-        <Card>
-          <CardHeader style={{padding: '0'}}actAsExpander={true} showExpandableButton={true}>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
+      this.props.flight &&
+      <Card>
+        <CardHeader style={{padding: '0'}}actAsExpander={true} showExpandableButton={true}>
+          <div style={{display: 'flex', flexDirection: 'row'}}>
             <div style={{width: '20%', display: 'flex', flexDirection: 'row'}}>
             <div style={{padding: '12px', fontSize: 'xx-large' , marginLeft: '26px' }}>{this.props.flight.price} {this.props.currency}</div>
-            </div>
-            <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-              <div>from <span className="tag-like">{routes[0][0].cityFrom} </span> to <span className="tag-like">{routes[0][routes[0].length-1].cityTo}</span> with <b>{routes[0].length - 1} layovers</b> and <b>total time {this.props.flight.fly_duration}</b></div>
-              {routes[1] && routes[1].length > 0 && <div> and back with<b> {routes[1].length - 1} layovers</b> and <b>total time {this.props.flight.return_duration}</b></div>}
+          </div>
+          <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+            <div>from <span className="tag-like">{routes[0][0].cityFrom} </span> to <span className="tag-like">{routes[0][routes[0].length-1].cityTo}</span> with <b>{routes[0].length - 1} layovers</b> and <b>total time {this.props.flight.fly_duration}</b></div>
+            {routes[1] && routes[1].length > 0 && <div> and back with<b> {routes[1].length - 1} layovers</b> and <b>total time {this.props.flight.return_duration}</b></div>}
             </div>
           </div>
-          </CardHeader>
-            <div  expandable={true}  style={{paddingBottom: '12px', width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-              <div className="flight-card-info" style={{alignItems: 'center', width: '20%', textAlign: 'left', display: 'flex', flexDirection: 'column'}}>
-                <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM HH:mm')}</div>
-                <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM HH:mm')}</div>
-                <div><b>Distance:</b> {this.props.flight.distance} km</div>
-              </div>
-              <div style={{width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+        </CardHeader>
+        <div  expandable={true}  style={{paddingBottom: '12px', width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <div className="flight-card-info" style={{alignItems: 'center', width: '20%', textAlign: 'left', display: 'flex', flexDirection: 'column'}}>
+            <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM HH:mm')}</div>
+            <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM HH:mm')}</div>
+            <div><b>Distance:</b> {this.props.flight.distance} km</div>
+          </div>
+            <div style={{width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
               {routes.map(route => <div style={{marginTop: '6px', display: 'flex', flexDirection: 'row'}}>{this.renderRoute(route)}</div>)}                
-              </div>
           </div>
-        </Card>
+        </div>
+      </Card>
       )
   }
 
@@ -59,7 +59,7 @@ class FlightCard extends Component {
   parseRoutes = (routes, notpRoutes) => {
     let parsedRoutes = [];
     let finalRoute = [];
-    let i=0
+    let i=0;
     notpRoutes.forEach(notpRoute => {
       finalRoute.push(notpRoute);
       if(routes[i] && routes[i][1] === notpRoute.flyTo){
@@ -67,7 +67,7 @@ class FlightCard extends Component {
         finalRoute = [];
         i++;
       }
-    })
+    });
     return parsedRoutes;
   }
 
@@ -79,11 +79,11 @@ class FlightCard extends Component {
   }
 
   getNotLastRouteNode = (route) => {
-      return (<div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}</div>);
+    return (<div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}</div>);
   }
 
   getLastRouteNode = (route) => {
-      return <div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}{this.getRouteContainer(route.mapIdto,route.aTime)}</div>;
+    return <div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}{this.getRouteContainer(route.mapIdto,route.aTime)}</div>;
   }
 }
 

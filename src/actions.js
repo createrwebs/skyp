@@ -11,92 +11,92 @@ export const RESPONSE_PLACES_ERR = "REQUEST_PLACES_ERR"
 export const MAIN_PAGE_SET_STATE = "MAIN_PAGE_SET_STATE"
 
 export function requestFlights(){
-	return{ type: REQUEST_FLIGHTS}
+  return{ type: REQUEST_FLIGHTS}
 }
 
 export function responseFlightsSucc(flights){
-	return { 
-		type: RESPONSE_FLIGHTS_SUCC,
-		flights
-	}
+  return { 
+    type: RESPONSE_FLIGHTS_SUCC,
+    flights
+  }
 }
 
 export function responseFlightsErr(){
-	return{ 
-		type: RESPONSE_FLIGHTS_ERR
-	}
+  return{ 
+    type: RESPONSE_FLIGHTS_ERR
+  }
 }
 
 export function requestPlaces(){
-	return{ type: REQUEST_PLACES}
+  return{ type: REQUEST_PLACES}
 }
 
 export function responsePlacesSucc(places){
-	return { 
-		type: RESPONSE_PLACES_SUCC,
-		places
-	}
+  return { 
+    type: RESPONSE_PLACES_SUCC,
+    places
+  }
 }
 
 export function responsePlacesErr(){
-	return{ 
-		type: RESPONSE_PLACES_ERR
-	}
+  return{ 
+    type: RESPONSE_PLACES_ERR
+  }
 }
 
 export function mainPageSetState(state){
-	return{
-		type: MAIN_PAGE_SET_STATE,
-		state
-	}
+  return{
+    type: MAIN_PAGE_SET_STATE,
+    state
+  }
 }
 
 export function fetchPlacesForSuggestions(query){
-	return dispatch => {
-		dispatch(requestPlaces())
-		return fetch('https://api.skypicker.com/places?term='+query+'&v=2&locale=en')
-		.then(
+  return dispatch => {
+    dispatch(requestPlaces())
+    return fetch('https://api.skypicker.com/places?term='+query+'&v=2&locale=en')
+    .then(
             response => response.json(),
-			error => dispatch(responsePlacesErr())
-		)
-		.then(
-			places => {return dispatch(responsePlacesSucc(places))}
-		);
-	};
+      error => dispatch(responsePlacesErr())
+    )
+    .then(
+      places => {return dispatch(responsePlacesSucc(places))}
+    );
+  };
 }
 
 export function fetchFlights(params){
-	var paramsCopy = Object.assign({}, params);
+  var paramsCopy = Object.assign({}, params);
 
-	paramsCopy.dateFrom = moment(paramsCopy.dateFrom).format('DD%2FMM%2FYYYY');
-	if (paramsCopy.dateTo) { paramsCopy.dateTo = moment(paramsCopy.dateTo).format('DD%2FMM%2FYYYY')}else{
-		paramsCopy.dateTo = paramsCopy.dateFrom;
-	}
-	if (paramsCopy.returnFrom) { paramsCopy.returnFrom = moment(paramsCopy.returnFrom).format('DD%2FMM%2FYYYY');}
-	if (paramsCopy.returnTo) { paramsCopy.returnTo = moment(paramsCopy.returnTo).format('DD%2FMM%2FYYYY');}
+  paramsCopy.dateFrom = moment(paramsCopy.dateFrom).format('DD%2FMM%2FYYYY');
+  if (paramsCopy.dateTo) { paramsCopy.dateTo = moment(paramsCopy.dateTo).format('DD%2FMM%2FYYYY')}else{
+    paramsCopy.dateTo = paramsCopy.dateFrom;
+  }
+  if (paramsCopy.returnFrom) { paramsCopy.returnFrom = moment(paramsCopy.returnFrom).format('DD%2FMM%2FYYYY');}
+  if (paramsCopy.returnTo) { paramsCopy.returnTo = moment(paramsCopy.returnTo).format('DD%2FMM%2FYYYY');}
 
-	Object.keys(paramsCopy).forEach(key => {if(paramsCopy[key] === null){delete paramsCopy[key]}})
+  Object.keys(paramsCopy).forEach(key => {if(paramsCopy[key] === null){delete paramsCopy[key]}})
 
-	var query = Object.keys(paramsCopy).map(k => k + '=' + paramsCopy[k]).join('&')
+  var query = Object.keys(paramsCopy).map(k => k + '=' + paramsCopy[k]).join('&')
 
-	return dispatch => {
-		dispatch(requestFlights())
-		return fetch('https://api.skypicker.com/flights?v=2&locale=en&'+query)
-		.then(
+  return dispatch => {
+    dispatch(requestFlights())
+    return fetch('https://api.skypicker.com/flights?v=2&locale=en&'+query)
+    .then(
             response => response.json(),
-			error => dispatch(responseFlightsErr())
-		)
-		.then(
-			data => {return dispatch(responseFlightsSucc(data.data))}
-		);
-	};
+      error => dispatch(responseFlightsErr())
+    )
+    .then(
+      data => {return dispatch(responseFlightsSucc(data.data))}
+    );
+  };
 }
 
 export function fetchFlightsMulti(params){
-	var paramsCopy = Object.assign({},params);
-	paramsCopy.flyFrom = paramsCopy.flyFrom.map(from => from.id).join(',');
-	paramsCopy.to = paramsCopy.to.map(from => from.id).join(',');
-	return fetchFlights(paramsCopy);
+  var paramsCopy = Object.assign({},params);
+  paramsCopy.flyFrom = paramsCopy.flyFrom.map(from => from.id).join(',');
+  paramsCopy.to = paramsCopy.to.map(from => from.id).join(',');
+  return fetchFlights(paramsCopy);
 }
 
 

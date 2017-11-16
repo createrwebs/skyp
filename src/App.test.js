@@ -18,13 +18,13 @@ import { shallow } from 'enzyme';
 configure({ adapter: new Adapter() })
 
 describe("App", () => {
-  let props
-  let shallowApp
+  let props;
+  let shallowApp;
   const createApp = () => {
   	if(!shallowApp){
       shallowApp = shallow(
         <App {...props} />
-      )
+      );
  	}
 	return shallowApp;
   }

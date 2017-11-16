@@ -10,8 +10,8 @@ import FlatButton from 'material-ui/FlatButton';
 
 export class AdvancedPanel extends Component {
 
-	render(){
-		return(
+  render(){
+    return(
       <div style={{background: 'white', margin: '6px', padding: '6px', borderRadius: '6px', position: 'relative',  display: 'flex', flexDirection: 'row',justifyContent: 'center'}}>
         <div>
           <div><b>Return: </b></div>
@@ -169,4 +169,4 @@ export class AdvancedPanel extends Component {
 
 }
 
-export default AdvancedPanel
+export default AdvancedPanel;

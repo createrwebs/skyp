@@ -85,91 +85,91 @@ export class MainPanel extends Component {
 
   //toggles advanced state on or off
   toggleAdvanced = () => {
-      this.setState({advanced: !this.state.advanced});
-    }
+    this.setState({advanced: !this.state.advanced});
+  }
 
-    /*handles date change for date fields
-    @param value - date object
-    @param formattedValue - string representing the date
-    */
+  /*handles date change for date fields
+  @param value - date object
+  @param formattedValue - string representing the date
+  */
   handleDateChangeFrom = (value,formattedValue) => {
     this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}));
-      if(!this.props.dateTo){
-        this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}));
-      }
+    if(!this.props.dateTo){
+      this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}));
     }
+  }
 
-    /*handles date change for date fields
-    @param value - date object
-    @param formattedValue - string representing the date
-    */
+  /*handles date change for date fields
+  @param value - date object
+  @param formattedValue - string representing the date
+  */
   handleDateChangeTo = (value,formattedValue) => {
     this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}));
-      if(!this.props.dateFrom){
-        this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}));
-      }
+    if(!this.props.dateFrom){
+      this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}));
     }
+  }
 
-    /*handles adding of the tags for ReactTags component on from field
-    @param tag - string set into the tag field
-    */
-    handleAdditionFrom = (tag) => {
-     this.handleAddition(tag,"flyFrom");
-    }
+  /*handles adding of the tags for ReactTags component on from field
+  @param tag - string set into the tag field
+  */
+  handleAdditionFrom = (tag) => {
+    this.handleAddition(tag,"flyFrom");
+  }
 
   /*handles adding of the tags for ReactTags component on to field
-    @param tag - string set into the tag field
-    */
-    handleAdditionTo = (tag) => {
-     this.handleAddition(tag,"to");
-    }
+  @param tag - string set into the tag field
+  */
+  handleAdditionTo = (tag) => {
+    this.handleAddition(tag,"to");
+  }
 
-    //function for common addition code
-    handleAddition = (tag, fieldName)=>{
-      if(!this.props.places.length){return;}
-      let matchPlace = this.props.places.filter(place => place.value === tag)[0];
-      let tagToAdd = {id: matchPlace.id, text: tag};  
-      let tags = [...this.props[fieldName]];
-      tags.push(tagToAdd);
-      let state = {};
-      state[fieldName] = tags;
-      this.props.dispatch && this.props.dispatch(mainPageSetState(state));
-    }
+  //function for common addition code
+  handleAddition = (tag, fieldName)=>{
+    if(!this.props.places.length){return;}
+    let matchPlace = this.props.places.filter(place => place.value === tag)[0];
+    let tagToAdd = {id: matchPlace.id, text: tag};  
+    let tags = [...this.props[fieldName]];
+    tags.push(tagToAdd);
+    let state = {};
+    state[fieldName] = tags;
+    this.props.dispatch && this.props.dispatch(mainPageSetState(state));
+  }
 
-    /*handles deletion of the tag from the from field
-    @param i - intiger representing poisiton of the tag
-    */
-    handleDeleteFrom = (i) => {
-      let tags = [...this.props.flyFrom];
-      tags.splice(i,1);
-      this.props.dispatch && this.props.dispatch(mainPageSetState({flyFrom: tags}));
-    }
+  /*handles deletion of the tag from the from field
+  @param i - intiger representing poisiton of the tag
+  */
+  handleDeleteFrom = (i) => {
+    let tags = [...this.props.flyFrom];
+    tags.splice(i,1);
+    this.props.dispatch && this.props.dispatch(mainPageSetState({flyFrom: tags}));
+  }
   
   /*handles deletion of the tag from the to field
-    @param i - integer representing poisiton of the tag
-    */
-    handleDeleteTo = (i) => {
-      let tags = [...this.props.to];
-      tags.splice(i,1);
-      this.props.dispatch && this.props.dispatch(mainPageSetState({to: tags}));
-    } 
+  @param i - integer representing poisiton of the tag
+  */
+  handleDeleteTo = (i) => {
+    let tags = [...this.props.to];
+    tags.splice(i,1);
+    this.props.dispatch && this.props.dispatch(mainPageSetState({to: tags}));
+  } 
 
-    /*handles input change on the from and to field, doesnt do anything if input is shorter than 2
-    @param input - string representing the input
-    */
-    handleInputChange = (input) => {
-      input.length > 2 && this.props.dispatch && this.props.dispatch(fetchPlacesForSuggestions(input));
-    }
+  /*handles input change on the from and to field, doesnt do anything if input is shorter than 2
+  @param input - string representing the input
+  */
+  handleInputChange = (input) => {
+    input.length > 2 && this.props.dispatch && this.props.dispatch(fetchPlacesForSuggestions(input));
+  }
 
-    /*filters suggestions for the ReactTag components, limits output to 10 
+  /*filters suggestions for the ReactTag components, limits output to 10 
   @param textInputValue - input value that the suggestions are filtered by
   @param possibleSuggestionsArray - array of possible suggestions that should be displayed
-    */
-    filterSuggestions = (textInputValue,possibleSuggestionsArray) => {
+  */
+  filterSuggestions = (textInputValue,possibleSuggestionsArray) => {
     return possibleSuggestionsArray.slice(0,10).filter(item =>
       item.toLowerCase().indexOf(textInputValue.toLowerCase()) === 0
     );
-    }
+  }
 }
 
 export default MainPanel
