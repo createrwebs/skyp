@@ -22,7 +22,7 @@ export class App extends Component {
               <div className={"flight-list-wrapper"+(this.props.isFetching ? " fade" : "")}>
                 {
                   this.props.flights.map(
-                  flight => <FlightCard currency={this.props.currency} flight={flight}/>
+                  flight => <FlightCard key={flight.id} currency={this.props.currency} flight={flight}/>
                   )
                 }
               </div>

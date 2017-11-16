@@ -22,9 +22,9 @@ class FlightCard extends Component {
           </div>
           </CardHeader>
             <div  expandable={true}  style={{paddingBottom: '12px', width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-              <div className="flight-card-info" style={{textAlign: 'left', display: 'flex', flexDirection: 'column'}}>
-                <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM hh:mm')}</div>
-                <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM hh:mm')}</div>
+              <div className="flight-card-info" style={{alignItems: 'center', width: '20%', textAlign: 'left', display: 'flex', flexDirection: 'column'}}>
+                <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM HH:mm')}</div>
+                <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM HH:mm')}</div>
                 <div><b>Distance:</b> {this.props.flight.distance} km</div>
               </div>
               <div style={{width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
@@ -50,7 +50,7 @@ class FlightCard extends Component {
       <div style={{background: 'gainsboro', borderRadius: '6px', padding: '6px'}}>                   
         <div>
           <div>{mapId}</div>
-          <div>{moment.unix(parseInt(time,10)).format('DD/MM hh:mm')}</div>
+          <div>{moment.unix(parseInt(time,10)).format('DD/MM HH:mm')}</div>
         </div>
       </div>
     )

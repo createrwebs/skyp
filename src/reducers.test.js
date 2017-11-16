@@ -8,7 +8,7 @@ describe("Reducers", () => {
 	})
 
 	it('should set the flights when responding to flights',()=>{
-		var flightsArray = [{id: 1},{id: 2}]
+		var flightsArray = [{id: 1},{id: 2}];
 		expect(flights(null,responseFlightsSucc(flightsArray)).flights).toBe(flightsArray);
 	})
 
@@ -17,7 +17,7 @@ describe("Reducers", () => {
 	})
 
 	it('should set the places when responding to places',()=>{
-		var placesArray = [{id: 1},{id: 2}]
+		var placesArray = [{id: 1},{id: 2}];
 		expect(places(null,responsePlacesSucc(placesArray)).places).toBe(placesArray);
 	})
 

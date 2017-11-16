@@ -57,7 +57,7 @@ describe("App", () => {
   })
 
   it("it renders list of flights if there are some" , () =>{
-    props = {...props,flights: [{id: 20}]}
+    props = {...props,flights: [{id: 20}]};
   	const elements = createApp().find(".flight-list-wrapper");
   	expect(elements.length).toBeGreaterThan(0);
   })
@@ -68,13 +68,13 @@ describe("App", () => {
   })
 
   it("it does not render message if fetching flights", () => {
-    props = {...props, isFetching: true}
+    props = {...props, isFetching: true};
   	const elements = createApp().find(".not-found-wrapper");
   	expect(elements.length).toBe(0);
   })
 
   it("shows progress bar if fetching", () => {
-	props = {...props, isFetching: true}
+	props = {...props, isFetching: true};
   	const elements = createApp().find(".progress-bar-wrapper");
   	expect(elements.length).toBe(1);  
   })

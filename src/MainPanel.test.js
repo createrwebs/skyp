@@ -19,8 +19,8 @@ import { shallow } from 'enzyme';
 configure({ adapter: new Adapter() })
 
 describe("App", () => {
-  let props
-  let shallowPanel
+  let props;
+  let shallowPanel;
   const createPanel = () => {
     if(!shallowPanel){
         shallowPanel = shallow(
