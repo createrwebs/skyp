@@ -72,6 +72,8 @@ export function fetchFlights(params){
 	if (paramsCopy.dateTo) { paramsCopy.dateTo = moment(paramsCopy.dateTo).format('DD%2FMM%2FYYYY')}else{
 		paramsCopy.dateTo = paramsCopy.dateFrom
 	}
+	if (paramsCopy.returnFrom) { paramsCopy.returnFrom = moment(paramsCopy.returnFrom).format('DD%2FMM%2FYYYY')}
+	if (paramsCopy.returnTo) { paramsCopy.returnTo = moment(paramsCopy.returnTo).format('DD%2FMM%2FYYYY')}
 
 	Object.keys(paramsCopy).forEach(key => {if(paramsCopy[key] === null){delete paramsCopy[key]}})
 

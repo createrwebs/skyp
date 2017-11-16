@@ -33,7 +33,7 @@ export function places (state = {places:[],isFetching: null, didInvalidate: fals
 	}
 }
 
-export function mainPage(state = {flyFrom: [], to: [], passengers: 1, sort: 'price', onlyWeekends: false, onlyWorkingDays: false, directFlights: false, dateFrom: null, dateTo: null},action){
+export function mainPage(state = {flyFrom: [], to: [], passengers: 1, sort: 'price', onlyWeekends: false, onlyWorkingDays: false, directFlights: false, dateFrom: null, dateTo: null, returnFrom: null, returnTo: null},action){
 	switch(action.type){
 		case MAIN_PAGE_SET_STATE :
 			return Object.assign({}, state , action.state)

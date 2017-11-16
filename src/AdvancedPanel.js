@@ -4,12 +4,30 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Toggle from 'material-ui/Toggle';
+import DatePicker from 'material-ui/DatePicker'
+import moment from 'moment'
+import FlatButton from 'material-ui/FlatButton';
 
 export class AdvancedPanel extends Component {
 
 	render(){
 		return(
       <div style={{background: 'white', margin: '6px', padding: '6px', borderRadius: '6px', position: 'relative',  display: 'flex', flexDirection: 'row',justifyContent: 'center'}}>
+        <div>
+          <div><b>Return: </b></div>
+          {(!this.props.returnFrom && !this.props.returnTo) && <div>(leave empty if one-way)</div>}
+          {(this.props.returnFrom || this.props.returnTo) && <FlatButton onClick={this.handleReturnBtnClear} label="CLEAR"/>}
+          <DatePicker 
+            className="date-field"
+            value={this.props.returnFrom} 
+            onChange={this.handleDateChangeRet} 
+            hintText="Return from" />
+          <DatePicker
+            className="date-field" 
+            value={this.props.returnTo} 
+            onChange={this.handleDateChangeRet} 
+            hintText="Return to" />
+        </div>
         <div>
           <div><b>Number of passengers :</b></div>
           <IconButton disabled={this.props.passengers < 2} onClick={this.decreasePassCounter}>
@@ -77,6 +95,24 @@ export class AdvancedPanel extends Component {
     this.props.dispatch && this.props.dispatch(mainPageSetState({sort: value}));
   }
 
+  //handles return button clear, clears both return dates 
+  handleReturnBtnClear = () => {
+    this.props.dispatch && this.props.dispatch(mainPageSetState({returnFrom: null, returnTo: null}));
+  }
+
+  /*handles date change for return fields
+  @param value - date object
+  @param formattedValue - string representing the date
+  */
+  handleDateChangeRet = (value,formattedValue) => {
+    if(!this.props.returnFrom){
+      this.props.dispatch && this.props.dispatch(mainPageSetState({returnFrom : moment(formattedValue).toDate()}));
+    }
+    if(!this.props.returnTo){
+      this.props.dispatch && this.props.dispatch(mainPageSetState({returnTo : moment(formattedValue).toDate()}));  
+    } 
+  }
+  
   /*handles change on the toggle for direct flights
   @param event - event fired when the toggle is changed
   @param value - value that the toggle is set to

@@ -10,7 +10,7 @@ export class MainPanel extends Component {
 
 	constructor(props) {
 	    super(props);
-	    this.state = { advanced: false };
+	    this.state = { advanced: true };
   	}
 
 	render(){
@@ -24,7 +24,7 @@ export class MainPanel extends Component {
 					  	autocomplete={true} 
 					  	handleDelete={this.handleDeleteFrom} 
 					  	handleInputChange={this.handleInputChange} 
-					  	placeholder="Add city or country"
+					  	placeholder="Type first 3 letters of city or country"
 					  	tags={this.props.flyFrom} 
 					  	suggestions = {this.props.places.map(place=>place.value)} 
 					  	handleAddition={this.handleAdditionFrom} /></div>
@@ -33,23 +33,23 @@ export class MainPanel extends Component {
 					  	handleFilterSuggestions={this.filterSuggestions} 
 					  	autocomplete={true} handleDelete={this.handleDeleteTo} 
 					  	handleInputChange={this.handleInputChange} 
-					  	placeholder="Add city or country"
+					  	placeholder="Type first 3 letters of city or country"
 					  	suggestions = {this.props.places.map(place=>place.value)} 
 					  	tags={this.props.to} 
 					  	handleAddition={this.handleAdditionTo} /></div>
 					  
-					<div className="date-field date-from-field-wrapper"><div style={{color: 'white'}}><b>Date from:</b></div>
+					<div className="date-field date-field-white date-from-field-wrapper"><div style={{color: 'white'}}><b>Date from:</b></div>
 						<DatePicker 
 						  	value={this.props.dateFrom} 
 						  	onChange={this.handleDateChange} 
 						  	hintText="Date to search from" />
 				  	</div>
 					  	{ this.state.advanced && 
-					  		<div className="date-field date-to-field-wrapper">
+					  		<div className="date-field date-field-white date-to-field-wrapper">
 					  			<div style={{color: 'white'}}><b>Date to:</b></div>
 					  			<DatePicker 
 					  				value={this.props.dateTo} 
-					  				onChange={this.handleDateChangeTo} 
+					  				onChange={this.handleDateChange} 
 				  					hintText="Date to search to" />
 							</div>
 			          }
@@ -62,7 +62,7 @@ export class MainPanel extends Component {
       				<FlatButton 
   						className="close-adv-panel-btn"
   						style={{color: 'white'}} 
-  						label="HIDE" 
+  						label="HIDE ADVANCED OPTIONS" 
   						onClick={this.toggleAdvanced} />
 				}
           		{!this.state.advanced && 
@@ -84,16 +84,17 @@ export class MainPanel extends Component {
     	this.setState({advanced: !this.state.advanced})
   	}
 
-  	/*handles date change for dateFrom field
+  	/*handles date change for date fields
   	@param value - date object
   	@param formattedValue - string representing the date
   	*/
 	handleDateChange = (value,formattedValue) => {
-    	this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}))
-  	}
-
-  	handleDateChangeTo = (value,formattedValue) => {
-    	this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}))
+		if(!this.props.dateFrom){
+    		this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}))
+    	}
+    	if(!this.props.dateTo){
+    		this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}))
+    	}
   	}
 
   	/*handles adding of the tags for ReactTags component on from field

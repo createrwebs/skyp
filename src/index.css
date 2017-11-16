@@ -29,6 +29,11 @@ body {
   opacity: 0.3;
 }
 
+.block-mouse-events{
+  pointer-events: none !important;
+  opacity: 0.3;
+}
+
 .tag-like{
   background: #FF5722;
   border: none;
@@ -51,11 +56,22 @@ body {
     flex-flow: column-reverse;
 }
 
-.date-field input{
+.block-mouse{
+  pointer-events: none !important;
+}
+
+.date-field-white input{
   color: white !important;
+}
+
+.date-field input{
   font-weight: bold !important;
   width: auto !important;
   text-align: center;
+}
+
+.date-field div{
+  width: auto !important;
 }
 
 .date-field div{
