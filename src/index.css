@@ -12,10 +12,54 @@ body {
 	z-index: 100;
 }
 
+.ReactTags__tag{
+  background: #FF5722 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  color: white;
+  padding: 6px 12px !important;
+  margin-bottom: 3px !important;
+  cursor: auto !important;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fade{
+  opacity: 0.3;
+}
+
+.tag-like{
+  background: #FF5722;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  margin: 0 6px;
+  padding: 1px 6px;
+}
+
+.ReactTags__remove{
+  margin-left: auto !important;
+  margin-right: 6px !important;
+  color: white !important;
+  transform: scale(2,2);
+}
+
 .ReactTags__selected{
 	display: flex;
     flex-direction: column;
     flex-flow: column-reverse;
+}
+
+.date-field input{
+  color: white !important;
+  font-weight: bold !important;
+  width: auto !important;
+  text-align: center;
+}
+
+.date-field div{
+  width: auto !important;
 }
 
 .main-panel div{

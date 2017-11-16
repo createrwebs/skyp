@@ -4,13 +4,10 @@ import { RESPONSE_FLIGHTS_ERR } from './actions'
 import { REQUEST_PLACES } from './actions'
 import { RESPONSE_PLACES_SUCC } from './actions'
 import { RESPONSE_PLACES_ERR } from './actions'
-import { MAIN_PAGE_SET_FROM } from './actions'
-import { MAIN_PAGE_SET_TO } from './actions'
-import { MAIN_PAGE_SET_DATE } from './actions'
 import { MAIN_PAGE_SET_STATE } from './actions'
 import { combineReducers } from 'redux'
 
-function flights (state = {currency: "EUR", flights: [],isFetching: null, didInvalidate: false, updatedAt: null}, action){
+export function flights (state = {currency: "EUR", flights: [],isFetching: null, didInvalidate: false, updatedAt: null}, action){
 	switch (action.type){
 		case REQUEST_FLIGHTS : 
 			return Object.assign({}, state, {isFetching: action})
@@ -23,7 +20,7 @@ function flights (state = {currency: "EUR", flights: [],isFetching: null, didInv
 	}
 }
 
-function places (state = {places:[],isFetching: null, didInvalidate: false, updatedAt: null}, action){
+export function places (state = {places:[],isFetching: null, didInvalidate: false, updatedAt: null}, action){
 	switch (action.type){
 		case REQUEST_PLACES : 
 			return Object.assign({}, state , {isFetching: action})
@@ -36,7 +33,7 @@ function places (state = {places:[],isFetching: null, didInvalidate: false, upda
 	}
 }
 
-function mainPage(state = {flyFrom: [], to: [], passengers: 1, sort: 'price', onlyWeekends: false, onlyWorkingDays: false, directFlights: false, dateFrom: null, dateTo: null},action){
+export function mainPage(state = {flyFrom: [], to: [], passengers: 1, sort: 'price', onlyWeekends: false, onlyWorkingDays: false, directFlights: false, dateFrom: null, dateTo: null},action){
 	switch(action.type){
 		case MAIN_PAGE_SET_STATE :
 			return Object.assign({}, state , action.state)
