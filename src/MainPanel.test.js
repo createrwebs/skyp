@@ -74,6 +74,7 @@ describe("App", () => {
   })
 
   it("should not show advanced panel in original state", () => {
+    createPanel().setState({advanced: false})
     const elements = createPanel().find(".advanced-panel-wrapper")
     expect(elements.length).toBe(0)
   })
@@ -85,6 +86,7 @@ describe("App", () => {
   })
 
   it("shows open button if advanced panel closed", () => {
+    createPanel().setState({advanced: false})
     const elements = createPanel().find(".show-adv-panel-btn")
     expect(elements.length).toBe(1)
   })

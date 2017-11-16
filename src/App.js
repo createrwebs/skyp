@@ -18,7 +18,7 @@ export class App extends Component {
           {this.props.isFetching && <LinearProgress color= "#FF5722" className="progress-bar-wrapper" mode="indeterminate" /> }
           <div className="search-panel" style={{padding: '6px'}}>
             {
-              this.props.flights.length !== 0 &&
+              this.props.flights && this.props.flights.length !== 0 &&
               <div className={"flight-list-wrapper"+(this.props.isFetching ? " fade" : "")}>
                 {
                   this.props.flights.map(
@@ -28,7 +28,7 @@ export class App extends Component {
               </div>
             }
             {
-              this.props.flights.length === 0 && !this.props.isFetching &&
+              this.props.flights && this.props.flights.length === 0 && !this.props.isFetching &&
               <div className="not-found-wrapper" style={{opacity: '0.2'}}>
                 <h2>Nothing found try different parameters</h2>
                 <h4>("from" "to" and "date" are required)</h4>

@@ -3,8 +3,10 @@ import moment from 'moment'
 import {Card, CardHeader} from 'material-ui/Card';
 
 class FlightCard extends Component {
+
+  //TO-DO this is not the cleanest component, didnt have time to finish it completely 
   render() {
-    let routes = this.parseRoutes(this.props.flight.routes,this.props.flight.route)
+    let routes = this.parseRoutes(this.props.flight.routes,this.props.flight.route);
     return (
         this.props.flight &&
         <Card>
@@ -36,9 +38,9 @@ class FlightCard extends Component {
   renderRoute = (route) => {
     return route.map((rt,index) => {
       if(route.length - 1 === index){
-        return this.getLastRouteNode(rt)
+        return this.getLastRouteNode(rt);
       }else{
-        return this.getNotLastRouteNode(rt)
+        return this.getNotLastRouteNode(rt);
       }
     })
   }
@@ -60,10 +62,10 @@ class FlightCard extends Component {
     let i=0
     notpRoutes.forEach(notpRoute => {
       finalRoute.push(notpRoute);
-      if(routes[i][1] === notpRoute.flyTo){
+      if(routes[i] && routes[i][1] === notpRoute.flyTo){
         parsedRoutes.push([...finalRoute]);
         finalRoute = [];
-        i++
+        i++;
       }
     })
     return parsedRoutes;

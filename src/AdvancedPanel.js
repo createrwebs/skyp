@@ -20,12 +20,12 @@ export class AdvancedPanel extends Component {
           <DatePicker 
             className="date-field"
             value={this.props.returnFrom} 
-            onChange={this.handleDateChangeRet} 
+            onChange={this.handleDateChangeRetFrom} 
             hintText="Return from" />
           <DatePicker
             className="date-field" 
             value={this.props.returnTo} 
-            onChange={this.handleDateChangeRet} 
+            onChange={this.handleDateChangeRetTo} 
             hintText="Return to" />
         </div>
         <div>
@@ -104,15 +104,24 @@ export class AdvancedPanel extends Component {
   @param value - date object
   @param formattedValue - string representing the date
   */
-  handleDateChangeRet = (value,formattedValue) => {
-    if(!this.props.returnFrom){
-      this.props.dispatch && this.props.dispatch(mainPageSetState({returnFrom : moment(formattedValue).toDate()}));
-    }
+  handleDateChangeRetFrom = (value,formattedValue) => {
+    this.props.dispatch && this.props.dispatch(mainPageSetState({returnFrom : moment(formattedValue).toDate()}));
     if(!this.props.returnTo){
       this.props.dispatch && this.props.dispatch(mainPageSetState({returnTo : moment(formattedValue).toDate()}));  
     } 
   }
-  
+
+  /*handles date change for return fields
+  @param value - date object
+  @param formattedValue - string representing the date
+  */
+  handleDateChangeRetTo = (value,formattedValue) => {
+    this.props.dispatch && this.props.dispatch(mainPageSetState({returnTo : moment(formattedValue).toDate()}));
+    if(!this.props.returnFrom){
+      this.props.dispatch && this.props.dispatch(mainPageSetState({returnFrom : moment(formattedValue).toDate()}));  
+    } 
+  }
+
   /*handles change on the toggle for direct flights
   @param event - event fired when the toggle is changed
   @param value - value that the toggle is set to

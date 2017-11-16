@@ -41,7 +41,7 @@ export class MainPanel extends Component {
 					<div className="date-field date-field-white date-from-field-wrapper"><div style={{color: 'white'}}><b>Date from:</b></div>
 						<DatePicker 
 						  	value={this.props.dateFrom} 
-						  	onChange={this.handleDateChange} 
+						  	onChange={this.handleDateChangeFrom} 
 						  	hintText="Date to search from" />
 				  	</div>
 					  	{ this.state.advanced && 
@@ -49,7 +49,7 @@ export class MainPanel extends Component {
 					  			<div style={{color: 'white'}}><b>Date to:</b></div>
 					  			<DatePicker 
 					  				value={this.props.dateTo} 
-					  				onChange={this.handleDateChange} 
+					  				onChange={this.handleDateChangeTo} 
 				  					hintText="Date to search to" />
 							</div>
 			          }
@@ -88,12 +88,21 @@ export class MainPanel extends Component {
   	@param value - date object
   	@param formattedValue - string representing the date
   	*/
-	handleDateChange = (value,formattedValue) => {
-		if(!this.props.dateFrom){
-    		this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}))
-    	}
+	handleDateChangeFrom = (value,formattedValue) => {
+		this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}))
     	if(!this.props.dateTo){
     		this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}))
+    	}
+  	}
+
+  	/*handles date change for date fields
+  	@param value - date object
+  	@param formattedValue - string representing the date
+  	*/
+	handleDateChangeTo = (value,formattedValue) => {
+		this.props.dispatch && this.props.dispatch(mainPageSetState({dateTo : moment(formattedValue).toDate()}))
+    	if(!this.props.dateFrom){
+    		this.props.dispatch && this.props.dispatch(mainPageSetState({dateFrom : moment(formattedValue).toDate()}))
     	}
   	}
 
