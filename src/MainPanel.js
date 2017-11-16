@@ -16,63 +16,67 @@ export class MainPanel extends Component {
 	render(){
 		return(
 			<div style={{background: '#00bcd4'}} className="MainPanel material-shadow">
-			  <div style={{position: 'relative',padding: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}} 
-    	  	    className ="main-panel">
-	              <div className="from-field-wrapper"><div style={{color: 'white'}}><b>From:</b></div>
-				    <ReactTags 
-					  handleFilterSuggestions={this.filterSuggestions} 
-					  autocomplete={true} 
-					  handleDelete={this.handleDeleteFrom} 
-					  handleInputChange={this.handleInputChange} 
-					  placeholder="Type first 3 letters of city or country"
-					  tags={this.props.flyFrom} 
-					  suggestions = {this.props.places.map(place=>place.value)} 
-					  handleAddition={this.handleAdditionFrom} /></div>
-				  <div className="to-field-wrapper"><div style={{color: 'white'}}><b>To:</b></div>
-					<ReactTags 
-					  handleFilterSuggestions={this.filterSuggestions} 
-					  autocomplete={true} handleDelete={this.handleDeleteTo} 
-					  handleInputChange={this.handleInputChange} 
-					  placeholder="Type first 3 letters of city or country"
-					  suggestions = {this.props.places.map(place=>place.value)} 
-					  tags={this.props.to} 
-					  handleAddition={this.handleAdditionTo} /></div>
-					  
-				  <div className="date-field date-field-white date-from-field-wrapper"><div style={{color: 'white'}}><b>Date from:</b></div>
-					  <DatePicker 
-					    value={this.props.dateFrom} 
-					    onChange={this.handleDateChangeFrom} 
-						hintText="Date to search from" />
-				  </div>
-				  	{ this.state.advanced && 
-				      <div className="date-field date-field-white date-to-field-wrapper">
-					  	  <div style={{color: 'white'}}><b>Date to:</b></div>
-					  	  <DatePicker 
-					  		value={this.props.dateTo} 
-					  		onChange={this.handleDateChangeTo} 
-				  		  hintText="Date to search to" />
-					  </div>
-		            }
-           		 </div>
-          		{this.state.advanced &&
-      			 	<AdvancedPanel 
-      			 		className="advanced-panel-wrapper" {...this.props} />
-  			 	}
-          		{this.state.advanced && 
-      				<FlatButton 
-  					  className="close-adv-panel-btn"
-  					  style={{color: 'white'}} 
-  					  label="HIDE ADVANCED OPTIONS" 
-  					  onClick={this.toggleAdvanced} />
+				<div style={{position: 'relative',padding: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}} 
+					className ="main-panel">
+					<div className="from-field-wrapper">
+						<div style={{color: 'white'}}><b>From:</b></div>
+						<ReactTags 
+							handleFilterSuggestions={this.filterSuggestions} 
+							autocomplete={true} 
+							handleDelete={this.handleDeleteFrom} 
+							handleInputChange={this.handleInputChange} 
+							placeholder="Type first 3 letters of city or country"
+							tags={this.props.flyFrom} 
+							suggestions = {this.props.places.map(place=>place.value)} 
+							handleAddition={this.handleAdditionFrom} />
+					</div>
+					<div className="to-field-wrapper">
+						<div style={{color: 'white'}}><b>To:</b></div>
+						<ReactTags 
+							handleFilterSuggestions={this.filterSuggestions} 
+							autocomplete={true} handleDelete={this.handleDeleteTo} 
+							handleInputChange={this.handleInputChange} 
+							placeholder="Type first 3 letters of city or country"
+							suggestions = {this.props.places.map(place=>place.value)} 
+							tags={this.props.to} 
+							handleAddition={this.handleAdditionTo} />
+					</div>
+					<div className="date-field date-field-white date-from-field-wrapper">
+						<div style={{color: 'white'}}><b>Date from:</b></div>
+						<DatePicker 
+							value={this.props.dateFrom} 
+							onChange={this.handleDateChangeFrom} 
+							hintText="Date to search from" />
+					</div>
+					{ this.state.advanced && 
+					<div className="date-field date-field-white date-to-field-wrapper">
+						<div style={{color: 'white'}}><b>Date to:</b></div>
+						<DatePicker 
+							value={this.props.dateTo} 
+							onChange={this.handleDateChangeTo} 
+							hintText="Date to search to" />
+					</div>
+					}
+				</div>
+				{this.state.advanced &&
+				<AdvancedPanel 
+					className="advanced-panel-wrapper" {...this.props} />
 				}
-          		{!this.state.advanced && 
-          			<FlatButton 
-          			  className="show-adv-panel-btn" 
-          			  style={{color: 'white'}} 
-          			  label="MORE OPTIONS" 
-          			  onClick={this.toggleAdvanced} />
-      			}
-          </div>
+				{this.state.advanced && 
+				<FlatButton 
+					className="close-adv-panel-btn"
+					style={{color: 'white'}} 
+					label="HIDE ADVANCED OPTIONS" 
+					onClick={this.toggleAdvanced} />
+				}
+				{!this.state.advanced && 
+				<FlatButton 
+					className="show-adv-panel-btn" 
+					style={{color: 'white'}} 
+					label="MORE OPTIONS" 
+					onClick={this.toggleAdvanced} />
+				}
+			</div>
 		)
 	}
 
@@ -122,7 +126,7 @@ export class MainPanel extends Component {
 
   	//function for common addition code
   	handleAddition = (tag, fieldName)=>{
-  		if(!this.props.places.length){return /*todo show that it is not valid*/}
+  		if(!this.props.places.length){return;}
 	    let matchPlace = this.props.places.filter(place => place.value === tag)[0];
 	    let tagToAdd = {id: matchPlace.id, text: tag};  
 	    let tags = [...this.props[fieldName]];
@@ -162,9 +166,9 @@ export class MainPanel extends Component {
 	@param possibleSuggestionsArray - array of possible suggestions that should be displayed
   	*/
   	filterSuggestions = (textInputValue,possibleSuggestionsArray) => {
-	    return possibleSuggestionsArray.slice(0,10).filter(item =>
-	   		item.toLowerCase().indexOf(textInputValue.toLowerCase()) === 0
-	  	);
+		return possibleSuggestionsArray.slice(0,10).filter(item =>
+			item.toLowerCase().indexOf(textInputValue.toLowerCase()) === 0
+		);
   	}
 }
 
