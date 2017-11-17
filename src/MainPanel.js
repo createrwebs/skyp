@@ -16,7 +16,7 @@ export class MainPanel extends Component {
   render(){
     return(
       <div style={{background: '#00bcd4'}} className="MainPanel material-shadow">
-        <div style={{position: 'relative',padding: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'center'}} 
+        <div style={{position: 'relative',padding: '16px', display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap'}} 
           className ="main-panel">
           <div className="from-field-wrapper">
             <div style={{color: 'white'}}><b>From:</b></div>

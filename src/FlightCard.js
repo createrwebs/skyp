@@ -2,50 +2,71 @@ import React, { Component } from 'react';
 import moment from 'moment'
 import {Card, CardHeader} from 'material-ui/Card';
 
-class FlightCard extends Component {
+export class FlightCard extends Component {
 
-  //TO-DO this is not the cleanest component, didnt have time to finish it completely 
   render() {
-    let routes = this.parseRoutes(this.props.flight.routes,this.props.flight.route);
-    return (
-      this.props.flight &&
-      <Card>
-        <CardHeader style={{padding: '0'}}actAsExpander={true} showExpandableButton={true}>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            <div style={{width: '20%', display: 'flex', flexDirection: 'row'}}>
-            <div style={{padding: '12px', fontSize: 'xx-large' , marginLeft: '26px' }}>{this.props.flight.price} {this.props.currency}</div>
-          </div>
-          <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-            <div>from <span className="tag-like">{routes[0][0].cityFrom} </span> to <span className="tag-like">{routes[0][routes[0].length-1].cityTo}</span> with <b>{routes[0].length - 1} layovers</b> and <b>total time {this.props.flight.fly_duration}</b></div>
-            {routes[1] && routes[1].length > 0 && <div> and back with<b> {routes[1].length - 1} layovers</b> and <b>total time {this.props.flight.return_duration}</b></div>}
+    if(this.props.flight){
+      let routes = this.parseRoutes(this.props.flight.routes,this.props.flight.route);
+      return (
+        <div className="FlightCard"> 
+        <Card>
+          <CardHeader style={{padding: '0'}}actAsExpander={true} showExpandableButton={true}>
+            <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+              <div style={{width: '20%', display: 'flex', flexDirection: 'row'}}>
+              <div style={{padding: '12px', fontSize: 'xx-large' , marginLeft: '26px' }}>
+                {this.props.flight.price} {this.props.currency}
+              </div>
+              </div>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', flexWrap: 'wrap', flex: '1'}}>
+                {routes[0] && routes[0].length > 0 && 
+                  <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center'}}>from <span className="tag-like">{routes[0][0].cityFrom} </span> 
+                  to <span className="tag-like">{routes[0][routes[0].length-1].cityTo}</span> 
+                  with <b>&nbsp;{routes[0].length - 1 } layovers &nbsp;</b> 
+                  and <b>&nbsp;total time {this.props.flight.fly_duration} &nbsp;</b>
+              </div>}
+                {routes[1] && routes[1].length > 0 && 
+                  <div>&nbsp;and back with<b> {routes[1].length - 1} layovers &nbsp;</b> 
+                  and <b> &nbsp;total time {this.props.flight.return_duration} &nbsp;</b>
+                  </div>}
+              </div>
+            </div>
+          </CardHeader>
+          <div expandable={true}  
+            style={{padding: '12px', width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap'}}>
+            <div className="flight-card-info" style={{textAlign: 'left', display: 'flex', flexDirection: 'column', flexWrap: 'wrap'}}>
+              <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM HH:mm')}</div>
+              <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM HH:mm')}</div>
+              <div><b>Distance:</b> {this.props.flight.distance} km</div>
+            </div>
+            {this.props.flight.airlines && 
+              this.props.flight.airlines.map(airline => 
+              <div style={{marginLeft:'6px'}}>
+                <img src={"https://images.kiwi.com/airlines/64/"+airline+".png"} alt={airline}  title={airline}/>
+              </div>)}
+            <div style={{marginRight: 'auto'}}></div>
+            <div style={{width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column', flexWrap: 'wrap'}}>
+                {routes.map(route => <div style={{marginTop: '6px', display: 'flex', flexDirection: 'row' , flexWrap: 'wrap'}}>{this.renderRoute(route)}</div>)}                
             </div>
           </div>
-        </CardHeader>
-        <div  expandable={true}  style={{paddingBottom: '12px', width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-          <div className="flight-card-info" style={{alignItems: 'center', width: '20%', textAlign: 'left', display: 'flex', flexDirection: 'column'}}>
-            <div><b>Departure:</b> {moment.unix(parseInt(this.props.flight.dTime,10)).format('DD/MM HH:mm')}</div>
-            <div><b>Arrival:</b> {moment.unix(parseInt(this.props.flight.aTime,10)).format('DD/MM HH:mm')}</div>
-            <div><b>Distance:</b> {this.props.flight.distance} km</div>
-          </div>
-            <div style={{width: '80%', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-              {routes.map(route => <div style={{marginTop: '6px', display: 'flex', flexDirection: 'row'}}>{this.renderRoute(route)}</div>)}                
-          </div>
+        </Card>
         </div>
-      </Card>
-      )
+      );
+    }else{
+      return null;
+    }            
   }
 
   renderRoute = (route) => {
     return route.map((rt,index) => {
       if(route.length - 1 === index){
-        return this.getLastRouteNode(rt);
+        return this.renderLastRouteNode(rt);
       }else{
-        return this.getNotLastRouteNode(rt);
+        return this.renderNotLastRouteNode(rt);
       }
     })
   }
 
-  getRouteContainer = (mapId,time) =>{
+  renderRouteContainer = (mapId,time) =>{
     return(
       <div style={{background: 'gainsboro', borderRadius: '6px', padding: '6px'}}>                   
         <div>
@@ -71,19 +92,26 @@ class FlightCard extends Component {
     return parsedRoutes;
   }
 
-  getArrow = () =>{ 
+  renderArrow = () =>{ 
     return(
       <div style={{display: 'flex', alignItems: 'center', margin: '0 16px'}}><i className="fa fa-arrow-right" aria-hidden="true"></i>
       </div>
-    )
+    );
   }
 
-  getNotLastRouteNode = (route) => {
-    return (<div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}</div>);
+  renderNotLastRouteNode = (route) => {
+    return (<div style={{display: 'flex', flexDirection: 'row'}}>
+      {this.renderRouteContainer(route.mapIdfrom,route.dTime)}
+      {this.renderArrow()}
+    </div>);
   }
 
-  getLastRouteNode = (route) => {
-    return <div style={{display: 'flex', flexDirection: 'row'}}>{this.getRouteContainer(route.mapIdfrom,route.dTime)}{this.getArrow()}{this.getRouteContainer(route.mapIdto,route.aTime)}</div>;
+  renderLastRouteNode = (route) => {
+    return <div style={{display: 'flex', flexDirection: 'row'}}>
+      {this.renderRouteContainer(route.mapIdfrom,route.dTime)}
+      {this.renderArrow()}
+      {this.renderRouteContainer(route.mapIdto,route.aTime)}
+    </div>;
   }
 }
 

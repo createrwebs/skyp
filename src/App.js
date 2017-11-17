@@ -9,6 +9,8 @@ import MainPanel from './MainPanel'
 
 export class App extends Component {
 
+  //I am inlining most of the styles because it makes it quicker to prototype, in production
+  //it should be done mostly with css classes
   render() {
     return (
       <div className="App">

@@ -16,7 +16,7 @@ import { shallow } from 'enzyme';
 -it shows button to open advanced section if it is not open
 */
 
-configure({ adapter: new Adapter() })
+configure({ adapter: new Adapter() });
 
 describe("App", () => {
   let props;
@@ -44,7 +44,7 @@ describe("App", () => {
       dateTo: null
     }
 
-    shallowPanel = undefined
+    shallowPanel = undefined;
   })
 
   it("always renders a div of class MainPanel", () => {

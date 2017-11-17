@@ -12,7 +12,16 @@ export class AdvancedPanel extends Component {
 
   render(){
     return(
-      <div style={{background: 'white', margin: '6px', padding: '6px', borderRadius: '6px', position: 'relative',  display: 'flex', flexDirection: 'row',justifyContent: 'center'}}>
+      <div className="AdvancedPanel" 
+          style={{background: 'white', 
+            margin: '6px', 
+            padding: '6px', 
+            borderRadius: '6px', 
+            position: 'relative',
+            flexWrap: 'wrap',  
+            display: 'flex', 
+            flexDirection: 'row',
+            justifyContent: 'center'}}>
         <div>
           <div><b>Return: </b></div>
           {(!this.props.returnFrom && !this.props.returnTo) && <div>(leave empty if one-way)</div>}
