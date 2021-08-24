@@ -7,7 +7,7 @@
     "enzyme-adapter-react-16": "^1.1.0",
     "fetch": "^1.1.0",
     "font-awesome": "^4.7.0",
-    "material-ui": "^0.19.4",
+    "material-ui": "^0.20.0",
     "moment": "^2.19.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
